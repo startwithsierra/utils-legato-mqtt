@@ -1,6 +1,6 @@
 # SWS :: Legato MQTT Client
 
-[![](https://img.shields.io/badge/legato-17.05-blue.svg)](http://legato.io/) [![](https://img.shields.io/badge/mangoh-WP8548-green.svg)](http://legato.io/)
+[![](https://img.shields.io/badge/legato-17.06-blue.svg)](http://legato.io/) [![](https://img.shields.io/badge/mangoh-WP8548-green.svg)](http://legato.io/)
 
 > :floppy_disk: This application is the MQTT Client derived from the C client provided by the Eclipse Paho project.
 
