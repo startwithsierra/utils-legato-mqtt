@@ -2,12 +2,12 @@
 
 [![](https://img.shields.io/badge/legato-17.05-blue.svg)](http://legato.io/) [![](https://img.shields.io/badge/mangoh-WP8548-green.svg)](http://legato.io/)
 
-> :floppy_disk: This application is the MQTT Client derived from the embedded C client provided by the Eclipse Paho project.
+> :floppy_disk: This application is the MQTT Client derived from the C client provided by the Eclipse Paho project.
 
 ### Note
 
-You must build, install and run the application on your board before running any application using MQTT protocol.<br />
-You can find more informations about MQTT [here](https://en.wikipedia.org/wiki/MQTT)
+You must build, install and run the application on your board before running any application using **MQTT** protocol.<br />
+You can find more informations about **MQTT** [here](https://en.wikipedia.org/wiki/MQTT)
 
 ### Overview
 
@@ -52,9 +52,9 @@ You can find more informations about MQTT [here](https://en.wikipedia.org/wiki/M
 7 directories, 27 files
 ```
 
-> Credits go to **github.com/mangOH** developers who created the base of this MQTT client application
+> Credits go to [**github.com/mangOH**](https://github.com/mangoh) developers who created the base of this **MQTT** client application
 
-#### Build
+### Compilation
 
 Just using `Makefile` with the specific target [ in our case `wp85` ]
 
@@ -73,7 +73,7 @@ mkapp -v -t wp85 \
 Makefile  ReadMe.md  _build_mqttClient	mqtt.api  mqttService.adef  mqttService.wp85.update  mqttComponent
 ```
 
-#### Install
+### Installation
 
 Just using `app install` command with our application binary and the board IP address.
 
@@ -91,7 +91,7 @@ SUCCESS
 Done
 ```
 
-#### Run
+### Verification
 
 ```sh
 ~/mhirba/sws/utils-legato-mqtt ❯❯❯ ssh root@192.168.2.2
@@ -110,7 +110,7 @@ Jul 25 09:20:15 swi-mdm9x15 user.info Legato:  INFO | swsMqttClient[1467]/mqttCo
 ...
 ```
 
-#### Next
+### Next
 
 Well, that's it. Easy right? 😎
 Take a look at our other samples using the **MQTT protocol** through specific usecases (Google Cloud IoT, etc.)
