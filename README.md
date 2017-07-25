@@ -115,4 +115,6 @@ Jul 25 09:20:15 swi-mdm9x15 user.info Legato:  INFO | swsMqttClient[1467]/mqttCo
 Well, that's it. Easy right? 😎
 Take a look at our other samples using the **MQTT protocol** through specific usecases (Google Cloud IoT, etc.)
 
-Develop with :heart: by [**Majdi Toumi**](http://majditoumi.com)|[**Mhirba**](http://mhirba.com) in **Paris**.
+### Credits
+
+Develop with :heart: by [**Majdi Toumi**](http://majditoumi.com)|[**Mhirba**](http://mhirba.com) in **Paris** for [**Sierra Wireless**](https://www.sierrawireless.com/).
