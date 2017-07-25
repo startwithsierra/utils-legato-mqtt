@@ -1,0 +1,51 @@
+// Component.adef ---
+//
+// Author: Majdi Toumi
+// Created: Wed Feb  8 16:58:58 2017 (+0100)
+// Last-Updated: Thu Feb 16 14:24:05 2017 (+0100)
+//           By: Majdi Toumi
+// Version: 1.0.0
+//
+// THE AIEOWTEA-WARE LICENSE
+// Majdi Toumi wrote this file
+// As long you retain this notice, you can do whatever
+// you want with this stuff. If we meet some day, and you think
+// this stuff is worth it, you can buy me a cup of tea in return.
+//
+// Let's Rock!
+//
+
+sources:
+{
+  main.c
+  src/mqttClient.c
+  src/mqtt/mqttConnectClient.c
+  src/mqtt/mqttConnectServer.c
+  src/mqtt/mqttUnsubscribeClient.c
+  src/mqtt/mqttUnsubscribeServer.c
+  src/mqtt/mqttSerializePublish.c
+  src/mqtt/mqttSubscribeClient.c
+  src/mqtt/mqttDeserializePublish.c
+  src/mqtt/mqttSubscribeServer.c
+  src/mqtt/mqttPacket.c
+  src/json/swir_json.c
+}
+
+// things the component needs from its runtime environment
+requires:
+{
+  // IPC APIs used by this component
+  api:
+  {
+    le_data.api
+    le_info.api
+  }
+}
+
+provides:
+{
+  api:
+  {
+    mqtt.api
+  }
+}

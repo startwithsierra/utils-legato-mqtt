@@ -1,0 +1,13 @@
+
+
+# Editors [ emacs + vim ]
+*~
+\#*\#
+.\#*
+*.elc
+
+# Legato executables
+*.update
+
+# Building directories
+_build_mqttService

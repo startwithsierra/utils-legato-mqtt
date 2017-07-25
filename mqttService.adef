@@ -1,0 +1,52 @@
+// mqttService.adef ---
+//
+// Author: Majdi Toumi
+// Created: Mon Jun 26 10:58:58 2017 (+0100)
+// Last-Updated: Wed Jun 28 13:37:00 2017 (+0100)
+//           By: Majdi Toumi
+// Version: 1.0.0
+//
+// THE AIEOWTEA-WARE LICENSE
+// Majdi Toumi wrote this file
+// As long you retain this notice, you can do whatever
+// you want with this stuff. If we meet some day, and you think
+// this stuff is worth it, you can buy me a cup of tea in return.
+//
+// Let's Rock!
+//
+
+// application version
+version: 1.0.0
+
+// the app should start automatically at start-up
+start: auto
+
+// the app will no be launched inside a sandbox.
+sandboxed: false
+
+executables:
+{
+	mqttService  = ( mqttComponent )
+}
+
+processes:
+{
+  envVars:
+  {
+    LE_LOG_LEVEL = DEBUG
+  }
+
+  run:
+  {
+    (mqttService)
+  }
+}
+
+bindings:
+{
+	// using basic API for requesting and releasing a data connection (mobile network, WiFi, etc.)
+  mqttService.mqttComponent.le_data -> dataConnectionService.le_data
+
+	// using prototype definitions for Modem Information APIs.
+  mqttService.mqttComponent.le_info -> modemService.le_info
+}
