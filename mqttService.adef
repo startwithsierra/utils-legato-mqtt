@@ -50,3 +50,8 @@ bindings:
 	// using prototype definitions for Modem Information APIs.
   mqttService.mqttComponent.le_info -> modemService.le_info
 }
+
+extern:
+{
+    mqttService.mqttComponent.mqtt
+}

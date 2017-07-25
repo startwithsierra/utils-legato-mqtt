@@ -4,12 +4,28 @@
 
 > :book: This application is the MQTT Client derived from the C client provided by the Eclipse Paho project.
 
-### Note
+## <a name='TOC'>Summary</a>
+
+- [Overview](#overview)
+- [Good to know](#good2know)
+- [Application Skeleton](#application-skeleton)
+- [Compilation](#compilation)
+- [Installation](#installation)
+- [Verification](#verification)
+- [Next](#next)
+- [Credits](#credits)
+
+## <a name='overview'>Overview</a>
+
+We'll build, install and run the application with the open source Linux-based embedded
+platform **Legato** toolchain + installation command line.
+
+## <a name='good2know'>Good to know</a>
 
 You must build, install and run the application on your board before running any application using **MQTT** protocol.<br />
 You can find more informations about **MQTT** [here](https://en.wikipedia.org/wiki/MQTT)
 
-### Overview
+## <a name='application-skeleton'>Application skeleton</a>
 
 ```sh
 ~/mhirba/sws/utils-legato-mqtt ❯❯❯ tree .
@@ -54,7 +70,7 @@ You can find more informations about **MQTT** [here](https://en.wikipedia.org/wi
 
 > Credits go to [**github.com/mangOH**](https://github.com/mangoh) developers who created the base of this **MQTT** client application
 
-### Compilation
+## <a name='compilation'>Compilation</a>
 
 Just using `Makefile` with the specific target [ in our case `wp85` ]
 
@@ -73,7 +89,7 @@ mkapp -v -t wp85 \
 Makefile  ReadMe.md  _build_mqttClient	mqtt.api  mqttService.adef  mqttService.wp85.update  mqttComponent
 ```
 
-### Installation
+## <a name='installation'>Installation</a>
 
 Just using `app install` command with our application binary and the board IP address.
 
@@ -91,7 +107,7 @@ SUCCESS
 Done
 ```
 
-### Verification
+## <a name='verification'>Verification</a>
 
 ```sh
 ~/mhirba/sws/utils-legato-mqtt ❯❯❯ ssh root@192.168.2.2
@@ -110,11 +126,11 @@ Jul 25 09:20:15 swi-mdm9x15 user.info Legato:  INFO | swsMqttClient[1467]/mqttCo
 ...
 ```
 
-### Next
+## <a name='next'>Next</a>
 
-Well, that's it. Easy right? 😎
+Well, that's it. Easy right? 😎<br />
 Take a look at our other samples using the **MQTT protocol** through specific usecases like Google Cloud IoT, AWS IoT providers, etc.
 
-### Credits
+## <a name='credits'>Credits</a>
 
 Develop with :heart: by [**Majdi Toumi**](http://majditoumi.com)|[**Mhirba**](http://mhirba.com) in **Paris** for [**Sierra Wireless**](https://www.sierrawireless.com/).
