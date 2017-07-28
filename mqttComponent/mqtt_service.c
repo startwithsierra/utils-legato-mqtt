@@ -1,34 +1,23 @@
-//  main.c ---
-//
-// Author: Majdi Toumi
-// Created: Mon Jun 26 10:58:58 2017 (+0100)
-// Last-Updated: Wed Jun 28 13:37:00 2017 (+0100)
-//           By: Majdi Toumi
-// Version: 1.0.0
-//
-// THE AIEOWTEA-WARE LICENSE
-// Majdi Toumi wrote this file
-// As long you retain this notice, you can do whatever
-// you want with this stuff. If we meet some day, and you think
-// this stuff is worth it, you can buy me a cup of tea in return.
-//
-// Let's Rock!
-//
-
+/**
+ * This module implements MQTT mqttClient_data_t.
+ *
+ * Copyright (C) Sierra Wireless Inc. Use of this work is subject to license.
+ *
+ */
+ 
 #include "legato.h"
 #include "interfaces.h"
-#include "le_data_interface.h"
 #include "json/swir_json.h"
-#include "mqttClient.h"
+#include "mqtt_service.h"
 
 static mqttClient_t mqttClient;
 
-static int mqttMain_SendMessage(const char*, const char*);
-static void mqttMain_SessionStateHandler(void*, void*);
-static void mqttMain_IncomingMessageHandler(void*, void*);
-static void mqttMain_SigTermEventHandler(int);
+static int mqttService_SendMessage(const char*, const char*);
+static void mqttService_SessionStateHandler(void*, void*);
+static void mqttService_IncomingMessageHandler(void*, void*);
+static void mqttService_SigTermEventHandler(int);
 
-static int mqttMain_SendMessage(const char* key, const char* value)
+static int mqttService_SendMessage(const char* key, const char* value)
 {
   char* payload = swirjson_szSerialize(key, value, 0);
 
@@ -66,7 +55,8 @@ cleanup:
 
 // JT added raw json string send
 #define JSON_MAX_PAYLOAD_SIZE 2048
-static int mqttMain_SendMessageJson( const char* jsonPayloadIn)
+
+static int mqttService_SendMessageJson( const char* jsonPayloadIn)
 {
   char	jsonPayloadOut[JSON_MAX_PAYLOAD_SIZE];
   mqttClient_msg_t msg;
@@ -108,7 +98,7 @@ static int mqttMain_SendMessageJson( const char* jsonPayloadIn)
 }
 
 
-static void mqttMain_IncomingMessageHandler(void* reportPtr, void* incomingMessageHandler)
+static void mqttService_IncomingMessageHandler(void* reportPtr, void* incomingMessageHandler)
 {
   mqttClient_inMsg_t* eventDataPtr = reportPtr;
   mqtt_IncomingMessageHandlerFunc_t clientHandlerFunc = incomingMessageHandler;
@@ -124,7 +114,7 @@ static void mqttMain_IncomingMessageHandler(void* reportPtr, void* incomingMessa
                     le_event_GetContextPtr());
 }
 
-static void mqttMain_SessionStateHandler(void* reportPtr, void* sessionStateHandler)
+static void mqttService_SessionStateHandler(void* reportPtr, void* sessionStateHandler)
 {
   mqttClient_connStateData_t* eventDataPtr = reportPtr;
   mqtt_SessionStateHandlerFunc_t clientHandlerFunc = sessionStateHandler;
@@ -135,13 +125,13 @@ static void mqttMain_SessionStateHandler(void* reportPtr, void* sessionStateHand
                     le_event_GetContextPtr());
 }
 
-static void mqttMain_SigTermEventHandler(int sigNum)
+static void mqttService_SigTermEventHandler(int sigNum)
 {
   LE_INFO("disconnect");
   mqttClient_disconnectData(&mqttClient);
 }
 
-__inline mqttClient_t* mqttMain_getClient(void)
+__inline mqttClient_t* mqttService_getClient(void)
 {
   return &mqttClient;
 };
@@ -190,10 +180,10 @@ void mqtt_Send(const char* key, const char* value, int32_t* returnCode)
   int32_t rc = LE_OK;
 
   LE_INFO("send key('%s') value('%s')", key, value);
-  rc = mqttMain_SendMessage(key, value);
+  rc = mqttService_SendMessage(key, value);
   if (rc)
   {
-    LE_ERROR("mqttMain_SendMessage() failed(%d)", rc);
+    LE_ERROR("mqttService_SendMessage() failed(%d)", rc);
     goto cleanup;
   }
 
@@ -207,10 +197,10 @@ void mqtt_SendJson( const char* json, int32_t* returnCode)
   int32_t rc = LE_OK;
 
   LE_INFO("send json(%s) ", json);
-  rc = mqttMain_SendMessageJson(json);
+  rc = mqttService_SendMessageJson(json);
   if (rc)
   {
-    LE_ERROR("mqttMain_SendMessageJson() failed(%d)", rc);
+    LE_ERROR("mqttService_SendMessageJson() failed(%d)", rc);
     goto cleanup;
   }
 
@@ -220,7 +210,7 @@ cleanup:
 }
 
 // JT added this so that we can manually request connection state - useful in the case where mqtt is already connected
-uint8_t mqtt_GetConnectionState(void)
+int mqtt_GetConnectionState(void)
 {
     return (mqttClient.session.isConnected);
 }
@@ -230,7 +220,7 @@ mqtt_SessionStateHandlerRef_t mqtt_AddSessionStateHandler(mqtt_SessionStateHandl
   LE_DEBUG("add session state handler(%p)", handlerPtr);
   le_event_HandlerRef_t handlerRef = le_event_AddLayeredHandler("MqttConnState",
                                                                 mqttClient.connStateEvent,
-                                                                mqttMain_SessionStateHandler,
+                                                                mqttService_SessionStateHandler,
                                                                 (le_event_HandlerFunc_t)handlerPtr);
 
   le_event_SetContextPtr(handlerRef, contextPtr);
@@ -248,7 +238,7 @@ mqtt_IncomingMessageHandlerRef_t mqtt_AddIncomingMessageHandler(mqtt_IncomingMes
   LE_DEBUG("add incoming message handler(%p)", handlerPtr);
   le_event_HandlerRef_t handlerRef = le_event_AddLayeredHandler("MqttIncomingMessage",
                                                                 mqttClient.inMsgEvent,
-                                                                mqttMain_IncomingMessageHandler,
+                                                                mqttService_IncomingMessageHandler,
                                                                 (le_event_HandlerFunc_t)handlerPtr);
 
   le_event_SetContextPtr(handlerRef, contextPtr);
@@ -263,10 +253,10 @@ void mqtt_RemoveIncomingMessageHandler(mqtt_IncomingMessageHandlerRef_t addHandl
 
 COMPONENT_INIT
 {
-  LE_INFO("** INIT MQTT SERVICE **");
+  LE_INFO("mqttService :: initialization");
 
   le_sig_Block(SIGTERM);
-  le_sig_SetEventHandler(SIGTERM, mqttMain_SigTermEventHandler);
+  le_sig_SetEventHandler(SIGTERM, mqttService_SigTermEventHandler);
 
   mqttClient_init(&mqttClient);
 }

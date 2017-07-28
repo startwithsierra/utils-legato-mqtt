@@ -17,7 +17,7 @@
 
 sources:
 {
-  main.c
+  mqtt_service.c
   src/mqttClient.c
   src/mqtt/mqttConnectClient.c
   src/mqtt/mqttConnectServer.c

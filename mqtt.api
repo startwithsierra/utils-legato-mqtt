@@ -54,10 +54,10 @@ FUNCTION SendJson
 
 //--------------------------------------------------------------------------------------------------
 /**
- * get mqtt connection state - useful for manual query
+ * Get mqtt connection state - useful for manual query
  */
 //--------------------------------------------------------------------------------------------------
-FUNCTION uint8 GetConnectionState
+FUNCTION int GetConnectionState
 (
 );
 
@@ -105,6 +105,3 @@ EVENT IncomingMessage
 (
     handler IncomingMessageHandler
 );
-
-
-
